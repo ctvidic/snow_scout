@@ -39,7 +39,7 @@ defmodule SnowScoutWeb.StationsLive do
 
     url =
       "http://api.powderlin.es/closest_stations?lat=#{lat}&lng=#{long}&data=true&days=7&count=7"
-
+    Logger.info url
     api_response =
       case HTTPoison.get(url, [], hackney: [:insecure]) do
         {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
@@ -51,7 +51,7 @@ defmodule SnowScoutWeb.StationsLive do
         {:error, %HTTPoison.Error{reason: _reason}} ->
           nil
       end
-
+    Logger.info api_response
 
     if api_response != nil do
       api_map = Poison.decode!(api_response)

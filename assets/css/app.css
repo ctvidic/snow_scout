@@ -106,9 +106,10 @@
   animation: 0.2s ease-out 0s normal forwards 1 fade-out-keys;
 }
 
-/* #station-map {
-  width: 100%;
+#station-map {
+  margin-top: 100px;
   height: 700px;
+  width: 1000px;
   margin-bottom: 100px;
 }
 

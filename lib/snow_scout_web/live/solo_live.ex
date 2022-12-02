@@ -14,7 +14,7 @@ defmodule SnowScoutWeb.SoloLive do
     station = Repo.all(query)
     string_id = String.slice(id, 1..-2)
     url = "http://api.powderlin.es/station/#{string_id}"
-
+    Logger.debug "HEYyYYYYYYYYYYYYY"
     api_response =
       case HTTPoison.get(url, [], hackney: [:insecure]) do
         {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
@@ -26,7 +26,7 @@ defmodule SnowScoutWeb.SoloLive do
         {:error, %HTTPoison.Error{reason: _reason}} ->
           nil
       end
-
+    Logger.debug api_response
     {:ok,
      assign(socket,
        string_id: api_response
