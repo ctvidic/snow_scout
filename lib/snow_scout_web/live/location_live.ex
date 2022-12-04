@@ -1,4 +1,5 @@
 defmodule SnowScoutWeb.LocationsLive do
+  require Logger
   use SnowScoutWeb, :live_view
   alias SnowScout.Station
   alias SnowScout.Repo
@@ -6,7 +7,6 @@ defmodule SnowScoutWeb.LocationsLive do
   def mount(_params, session, socket) do
     socket = assign_defaults(session, socket)
     stations = Repo.all(Station, user_id: socket.assigns.current_user.id)
-
     {:ok,
      assign(socket,
        stations: stations
@@ -19,7 +19,7 @@ defmodule SnowScoutWeb.LocationsLive do
 
   def render(assigns) do
     ~H"""
-      <% for station <- @stations do %>
+      <%= for station <- @stations do %>
       <div class="weather-card">
         <li>Station Name: <%= inspect station.name %></li>
         <li>Lat: <%= inspect station.latitude %> Lng: <%= inspect station.longitude %></li>

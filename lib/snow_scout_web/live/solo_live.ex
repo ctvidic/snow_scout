@@ -13,7 +13,7 @@ defmodule SnowScoutWeb.SoloLive do
       where: s.triplet == ^id
     station = Repo.all(query)
     string_id = String.slice(id, 1..-2)
-    url = "http://api.powderlin.es/station/#{string_id}"
+    url = "https://snowscout.herokuapp.com/station/#{string_id}"
     Logger.debug "HEYyYYYYYYYYYYYYY"
     api_response =
       case HTTPoison.get(url, [], hackney: [:insecure]) do

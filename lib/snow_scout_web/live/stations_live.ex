@@ -38,7 +38,7 @@ defmodule SnowScoutWeb.StationsLive do
     long = Map.get(location_attrs, :longitude)
 
     url =
-      "http://api.powderlin.es/closest_stations?lat=#{lat}&lng=#{long}&data=true&days=7&count=7"
+      "https://snowscout.herokuapp.com/closest_stations?lat=#{lat}&lng=#{long}&data=true&days=7&count=1"
     Logger.info url
     api_response =
       case HTTPoison.get(url, [], hackney: [:insecure]) do
