@@ -22,6 +22,7 @@ const DetailedPrecipChart = {
     // }
     console.log(seriesData)
     let numbers = []
+    let prev_dates = this.prev_week_dates()
     for(let x = 0; x < seriesData.length; x++){
           num = parseInt(seriesData[x])
           if (num >= 0){
@@ -31,7 +32,7 @@ const DetailedPrecipChart = {
     seriesData = numbers.reverse()
     var options = {
       series: [{
-        name: "Desktops",
+        name: "Snowfall (In)",
         data: seriesData
     }],
       chart: {
@@ -58,73 +59,20 @@ const DetailedPrecipChart = {
       },
     },
     xaxis: {
-      categories: ['1', '2', '3', '4', '5', '6', '7', '8'],
-    }
+      title: {
+        text: 'Date'
+      },
+      categories: prev_dates,
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    yaxis: {
+      title: {
+        text: 'Snowfall (In)'
+      },
+    },
     };
-
-    // var options = {
-    //   chart: {
-    //     id: 'DetailedPrecipChart',
-    //     height: '350px',
-    //     type: 'line',
-    //     offsetY: 10,
-    //     toolbar: {
-    //       tools: {
-    //         // eslint-disable-next-line prettier/prettier
-    //         download: '<img src="/images/download_icon.png" width="50" height="50" />',
-    //         selection: false,
-    //         zoom: false,
-    //         zoomin: false,
-    //         zoomout: false,
-    //         pan: false,
-    //         reset: false
-    //       }
-    //     }
-    //   },
-    //   dataLabels: {
-    //     enabled: false
-    //   },
-    //   title: {
-    //     text: 'Historical Precipitation',
-    //     margin: 10,
-    //     offsetY: -5,
-    //     floating: true,
-    //     align: 'center'
-    //   },
-    //   legend: {
-    //     position: 'bottom',
-    //     itemMargin: {
-    //       horizontal: 10,
-    //       vertical: 15
-    //     },
-    //     show: false
-    //   },
-    //   stroke: {
-    //     curve: 'straight',
-    //     width: 3
-    //   },
-    //   colors: ['#FEB019', '#00E396', '#008FFB'],
-    //   xaxis: {
-    //     type: 'datetime',
-    //     labels: {
-    //       format: 'MMM'
-    //     }
-    //   },
-    //   yaxis: {
-    //     labels: {
-    //       formatter(value) {
-    //         return value + '%'
-    //       }
-    //     }
-    //   },
-    //   tooltip: {
-    //     x: {
-    //       format: 'MMM d',
-    //       formatter: undefined
-    //     }
-    //   },
-    //   series: seriesData
-    // }
     return options
   },
   calcChartData(location) {
@@ -134,6 +82,22 @@ const DetailedPrecipChart = {
       { name: 'Low % Precip', data: this.getLowPrecipData(location) }
     ]
     return seriesData
+  },
+  prev_week_dates(){
+
+    let arr = []
+    let month = ''
+    let day = ''
+    let date = new Date()
+    for(let i=0;i<8;i++){
+      date = new Date(Date.now() - 1000*60*60*(24*i));
+      month = date.getMonth() + 1
+      day= date.getDate()
+      date_string = month + '/' + day
+      arr.push(date_string);
+      arr.reverse();
+    }
+    return arr
   },
   mounted() {
     const api_response = this.el.getAttribute("api_response")

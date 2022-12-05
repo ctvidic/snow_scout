@@ -113,14 +113,16 @@
   margin-bottom: 100px;
 }
 
+#DetailedPrecipChart {
+  height: 320px;
+  width: 1000px;
+}
+
 .weather-card{
   padding: 10px;
   box-shadow: 1px 1px 1px 1px rgb(145, 145, 145);
   border-radius: 5px;
   margin: 5px
-}
-.DetailedPrecipChart{
-  padding-top: 100px;
 }
 #main_flex {
   display: flex;

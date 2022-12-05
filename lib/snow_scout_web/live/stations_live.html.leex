@@ -13,16 +13,16 @@
       </section>
       </div>
     </div>
-    <div id="DetailedPrecipChart"
-      phx-hook="DetailedPrecipChart"
-      api_response="<%= inspect @api_response %>"
-      station_name="<%= inspect @station_name %>"
-      phx-update="ignore"
-      >
-    </div>
+      <div id="DetailedPrecipChart"
+        phx-hook="DetailedPrecipChart"
+        api_response="<%= inspect @api_response %>"
+        station_name="<%= inspect @station_name %>"
+        phx-update="ignore"
+        >
+      </div>
     <form phx-submit="save_location">
-      <span class="">
-        <button phx-click="save_station" phx-value-lng="<%= inspect @lng%>" phx-value-lat="<%= inspect @lat%>" phx-value-triplet="<%= inspect @triplet%>" phx-value-station_name="<%= inspect @station_name%>" class="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150 sm:w-auto sm:text-sm sm:leading-5">
+      <span class="mb-10">
+        <button phx-click="save_station" phx-value-lng="<%= inspect @lng%>" phx-value-lat="<%= inspect @lat%>" phx-value-triplet="<%= inspect @triplet%>" phx-value-station_name="<%= inspect @station_name%>" class="w-full mb-10 inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150 sm:w-auto sm:text-sm sm:leading-5">
           Save Location
         </button>
       </span>
