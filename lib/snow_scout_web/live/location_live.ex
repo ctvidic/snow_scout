@@ -22,16 +22,19 @@ defmodule SnowScoutWeb.LocationsLive do
     end
   end
 
+  def handle_event("delete_station", data , socket) do
+
+  end
+
   def render(assigns) do
     ~H"""
       <div class="flex flex-col items-center w-1000 !important">
         <%= for station <- @stations do %>
-        <div class="weather-card w-1000">
-          <li>Station Name: <%= inspect station.name %></li>
-          <li>Lat: <%= inspect station.latitude %> Lng: <%= inspect station.longitude %></li>
-          <li><%= inspect station.triplet %></li>
-          <li><a href={parse_triplet(station.triplet)} target="_blank">Snotel Link </a></li>
-          <li><%= link "Station Page", to: Routes.solo_path(@socket, :show, station.triplet)%></li>
+        <div class="weather-card w-1000 dark:bg-gray-200 dark:border-gray-100">
+          <div class="text-lg font-semibold text-gray-900 dark:text-black"><%= inspect String.trim(station.name, ~S["]) %></div>
+          <div class="text-sm font-medium mb-3">Lat: <%= inspect station.latitude %> Lng: <%= inspect station.longitude %></div>
+          <div class="text-m font-medium hover:text-gray-600"><a href={parse_triplet(station.triplet)} target="_blank">Snotel Link </a></div>
+          <div  class="text-m font-medium hover:text-gray-600"><%= link "Station Page", to: Routes.solo_path(@socket, :show, station.triplet)%></div>
         </div>
       <% end %>
       </div>
