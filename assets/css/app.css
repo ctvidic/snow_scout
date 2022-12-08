@@ -122,7 +122,8 @@
   padding: 10px;
   box-shadow: 1px 1px 1px 1px rgb(145, 145, 145);
   border-radius: 5px;
-  margin: 5px
+  margin: 5px;
+  width: 1000px !important;
 }
 #main_flex {
   display: flex;

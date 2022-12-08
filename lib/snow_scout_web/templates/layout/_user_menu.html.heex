@@ -7,8 +7,6 @@
   </div>
 <% else %>
   <div class="flex flex-row justify-items-center place-content-between items-center p-12">
-    <li class="m-5"><%= link "My Stations", to: Routes.locations_path(@conn, :index)%></li>
-    <li class="m-5"><%= link "Stations", to: Routes.stations_path(@conn, :index)%></li>
         <li class="m-5 bg-gray-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"><%= link "Register", to: Routes.user_registration_path(@conn, :new) %></li>
     <li class="m-5 bg-gray-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"><%= link "Log in", to: Routes.user_session_path(@conn, :new) %></li>
   </div>
