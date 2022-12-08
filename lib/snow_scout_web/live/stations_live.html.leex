@@ -1,16 +1,25 @@
 <div class="">
   <div class="flex flex-col justify-items-center items-center place-items-center">
-    <div class="w-500 h-500">
+    <div class="w-500 h-500 flex flex-box justify-items-center">
       <div class ="w-500 h-500 !important">
-      <section class="w-500 h-500 !important">
-        <div id="station-map"
-          class="mapboxgl-map w-500 h-500 !important"
-          phx-hook="StationMap"
-          station_info ="<%= inspect @station_info %>"
-          phx-update="ignore"
-        >
+        <section class="w-500 h-500 !important">
+          <div id="station-map"
+            class="mapboxgl-map w-500 h-500 !important"
+            phx-hook="StationMap"
+            station_info ="<%= inspect @station_info %>"
+            phx-update="ignore"
+          >
+          </div>
+        </section>
+      </div>
+      <div id="info-box" class="mt-10 rounded-sm dark:bg-gray-200 dark:border-gray-100!important">
+        <div class="font-semibold p-3">&#8505; How To Use</div>
+        <div class="text-sm font-semibold list-none">
+            <li class="ml-5"> 1&#65039;&#8419; Click point on map you are interested in </li>
+            <li class="ml-5"> 2&#65039;&#8419; Program will find nearest snow station </li>
+            <li class="ml-5"> 3&#65039;&#8419; Precipitation chart below will update, save station if interested </li>
+            <li class="ml-5"> 4&#65039;&#8419; Users saved stations can be found at the My Stations link </li>
         </div>
-      </section>
       </div>
     </div>
       <div id="DetailedPrecipChart"
