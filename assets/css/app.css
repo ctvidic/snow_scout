@@ -114,6 +114,14 @@
   filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
 }
 
+#alert{
+  justify-content: center !important;
+}
+
+.container{
+  display: flex;
+  justify-content: center !important;
+}
 #remove-button{
   margin-top: 100px;
   margin-left: 30px;
@@ -130,8 +138,10 @@
 }
 
 #whole-page{
-  margin-left: 150px;
-  height: 1500px
+  justify-content: center !important;
+  position: relative;
+  height: 1500px;
+  margin-left: 200px;
 }
 
 #DetailedPrecipChart {
