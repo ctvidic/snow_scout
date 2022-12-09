@@ -33,11 +33,13 @@ const StationMap = {
     // const selectedLocation = JSON.parse(this.el.dataset.selected_location)
     const map = this.map
 
+    console.log(this)
 
     const view = this;
     // When a click event occurs on a feature in the places layer, open a popup at the
     // location of the feature, with description HTML from its properties.
     this.map.on('load', function () {
+     
       map.on('click', function (e) {
         const mapLayer = map.getLayer('placeHolderPoint')
 
@@ -85,7 +87,50 @@ const StationMap = {
         view.pushEvent("selected_location", { location: e.lngLat })
       });
     });
-
+    this.handleEvent("update_station" , data => {
+      // this.map = this.createMap()
+      let lat = data.lat
+      let lng = data.lng
+      const center = new mapboxgl.LngLat(lat,lng);
+      this.map.setCenter(center);
+      this.map.on('load', function () {
+        console.log("fasdf")
+        map.addLayer({
+          id: 'placeHolderPoint',
+          type: 'symbol',
+          source: {
+            type: 'geojson',
+            data: {
+              type: 'FeatureCollection',
+              features: [
+                {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [lat,lng]
+                  },
+                  properties: {
+                    icon: 'communications-tower',
+                    title: (Math.round(lat * 10000) / 10000).toString() + ', ' + (Math.round(lng * 10000) / 10000).toString()
+                  }
+                }
+              ]
+            },
+            tolerance: 0.00001
+          },
+          layout: {
+            'icon-image': '{icon}-15',
+            'icon-size': 1.25,
+            'text-field': '{title}',
+            'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+            'text-offset': [0, 0.6],
+            'text-anchor': 'top',
+            'icon-allow-overlap': true,
+            'text-allow-overlap': true
+          }
+        });
+      });
+    });
     this.handleEvent("clicked", data => {
       let lat = data.station_info.lat
       let lng = data.station_info.lng
@@ -112,11 +157,11 @@ const StationMap = {
                     type: 'Feature',
                     geometry: {
                       type: 'Point',
-                      coordinates: [lng, lat]
+                      coordinates: [42.38, 255.39]
                     },
                     properties: {
                       icon: 'communications-tower',
-                      title: (Math.round(lat * 10000) / 10000).toString() + ', ' + (Math.round(lng * 10000) / 10000).toString()
+                      title: (Math.round(42.38 * 10000) / 10000).toString() + ', ' + (Math.round(255.39 * 10000) / 10000).toString()
                     }
                   }
                 ]

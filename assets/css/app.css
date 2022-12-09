@@ -111,8 +111,12 @@
   height: 700px;
   width: 1000px;
   margin-bottom: 100px;
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
 }
 
+#precip-class{
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
+}
 #info-box{
   margin-top: 100px;
   margin-left: 20px;
@@ -123,6 +127,7 @@
 
 #whole-page{
   margin-left: 150px;
+  height: 1500px
 }
 
 #DetailedPrecipChart {
