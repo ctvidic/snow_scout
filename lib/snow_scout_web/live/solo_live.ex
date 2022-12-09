@@ -1,12 +1,13 @@
 defmodule SnowScoutWeb.SoloLive do
+  use SnowScoutWeb, :live_view
   import Phoenix.LiveView.Helpers
   import Phoenix.LiveView
   alias SnowScout.Station
   alias SnowScout.Repo
   import Ecto.Query
   require Logger
-  use SnowScoutWeb, :live_view
 
+  @impl true
   def mount(%{"id" => id}, session, socket) do
     # socket = assign_defaults(session, socket)
     query = from s in Station,
@@ -35,11 +36,6 @@ defmodule SnowScoutWeb.SoloLive do
 
   def string_in_string?(triplet, id) do
     triplet =~ id
-  end
-  def render(assigns) do
-    ~H"""
-    <%= @string_id %>
-    """
   end
 
 

@@ -121,6 +121,10 @@
   font-size: x-large;
 }
 
+#whole-page{
+  margin-left: 150px;
+}
+
 #DetailedPrecipChart {
   height: 320px;
   width: 1000px;
