@@ -39,7 +39,6 @@ defmodule SnowScoutWeb.StationsLive do
 
     url =
       "https://snowscout.herokuapp.com/closest_stations?lat=#{lat}&lng=#{long}&data=true&days=7&count=1"
-    Logger.info url
     api_response =
       case HTTPoison.get(url, [], hackney: [:insecure]) do
         {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
@@ -51,8 +50,7 @@ defmodule SnowScoutWeb.StationsLive do
         {:error, %HTTPoison.Error{reason: _reason}} ->
           nil
       end
-    Logger.info api_response
-
+    Logger.info "selected_location"
     if api_response != nil do
       api_map = Poison.decode!(api_response)
       values_listed = map_to_list(Map.fetch!(List.first(api_map),"data"))
@@ -101,6 +99,8 @@ defmodule SnowScoutWeb.StationsLive do
     {:noreply, assign(socket, lng: lng, lat: lat, station_name: station_name, triplet: triplet)}
   end
 
+
+
   @impl true
   defp map_to_list([]) do
     []
@@ -113,7 +113,6 @@ defmodule SnowScoutWeb.StationsLive do
 
   @impl true
   defp parse_string(api_response) do
-    Logger.info Poison.decode(api_response)
   end
 
   @impl true
@@ -132,7 +131,6 @@ defmodule SnowScoutWeb.StationsLive do
 
   @impl true
   def handle_event("save_location", _params, socket) do
-    Logger.info socket
     {:noreply, socket}
   end
 end

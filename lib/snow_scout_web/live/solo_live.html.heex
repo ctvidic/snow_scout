@@ -7,18 +7,34 @@
             class="mapboxgl-map w-500 h-500  !important"
             phx-hook="StationMap"
             phx-update="ignore"
+            phx-value-lat={@lat_solo}
+            phx-value-lng={@lng_solo}
             station_info ="{inspect @station_info}"
           >
           </div>
         </section>
       </div>
-      <form phx-submit="save_location">
-          <span class="m-30 mt-10 !important">
-            <button phx-click="delete_station" class="w-full mb-10 inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150 sm:w-auto sm:text-sm sm:leading-5">
-              Remove Station
-            </button>
-          </span>
-        </form>
+      <div id="remove-button">
+        <form phx-submit="save_location">
+            <span class="m-30 mt-30 !important">
+              <button phx-click="delete_station" class="w-full mt-30 mb-10 inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-red-700 transition ease-in-out duration-150 sm:w-auto sm:text-sm sm:leading-5">
+                Remove Station
+              </button>
+            </span>
+          </form>
+        </div>
     </div>
+    <%= if @data do %>
+    <div class="shadow-lg p-5 border-2 rounded-md mb-100 !important">
+        <section id="precip-class">
+          <div id="DetailedPrecipChart"
+            phx-hook="DetailedPrecipChart"
+            phx-value-ref={@precip_string}
+            phx-update="ignore"
+            >
+          </div>
+        </section>
+      </div>
+  <%end %>
   </div>
 </div>

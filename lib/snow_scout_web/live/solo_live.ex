@@ -31,18 +31,23 @@ defmodule SnowScoutWeb.SoloLive do
 
     lat = find_lat(api_response)
     lng = find_lng(api_response)
-    values_listed = precip_values(api_response)
-
+    data_station = [lat,lng]
+    values_listed = list_to_string(precip_values(api_response))
     {:ok,
-      push_event(socket, "update_station", %{lat: lng,lng: lat})}
+    assign(socket,
+      edit_mode: false,
+      lng_solo: lng,
+      lat_solo: lat,
+      precip_string: values_listed,
+      precip_values: '',
+      data: ''
+    )}
+
   end
 
   def precip_values(api_response) do
     decode = Poison.decode!(api_response)
     vals = Map.fetch!(decode,"data")
-    Logger.info vals
-    snow_vals = map_to_list(vals)
-    Logger.info snow_vals
     vals
   end
 
@@ -52,6 +57,12 @@ defmodule SnowScoutWeb.SoloLive do
       location = Map.fetch!(val,"location")
       lat = Map.fetch!(location, "lat")
       lat
+  end
+
+  def handle_event("assign_station", _params,socket) do
+    station_strings = list_to_string(socket.assigns.precip_values)
+    Logger.info station_strings
+    {:noreply, assign(socket, precip_string: station_strings)}
   end
 
   def find_lng(api_response) do
@@ -66,18 +77,40 @@ defmodule SnowScoutWeb.SoloLive do
     triplet =~ id
   end
 
-  defp map_to_list([]) do
+  @impl true
+  defp list_to_list([ x | rest]) do
+     list_to_list(rest) ++ [Map.fetch!(x, "Snow Depth (in)")]
+  end
+
+  defp list_to_list([]) do
     []
   end
 
   @impl true
-  defp map_to_list([ x | rest]) do
-     map_to_list(rest) ++ [Map.fetch!(x, "Snow Depth (in)")]
+  defp list_to_string([ x | rest]) do
+     if Map.fetch!(x, "Snow Depth (in)") == nil do
+      list_to_string(rest) <> "X" <> "N"
+     else
+      list_to_string(rest) <> "X" <> Map.fetch!(x, "Snow Depth (in)")
+     end
   end
 
+  defp list_to_string([]) do
+    "X"
+  end
+
+
+
   def handle_event("delete_station", data , socket) do
-    Logger.info data
-    # add in new attributes, set the user and insert the location into the database
+    lat = socket.assigns
+    Logger.info "get?"
+    Logger.info socket.assigns.lat_solo
+    x= Repo.get_by(Station, latitude: socket.assigns.lat_solo)
+    Logger.info "got?"
+
+    Logger.info "delete?"
+    Repo.delete(x)
+    {:noreply, socket}
   end
 
 end

@@ -28,18 +28,56 @@ const StationMap = {
     return map
   },
   mounted() {
-    console.log("Mounted")
     this.map = this.createMap()
     // const selectedLocation = JSON.parse(this.el.dataset.selected_location)
     const map = this.map
-
-    console.log(this)
-
+    doc = document.getElementById('station-map')
+    let solo_lng = doc.getAttribute('phx-value-lng')
+    let solo_lat = doc.getAttribute('phx-value-lat')
+    let precip = doc.getAttribute('phx-value-precip')
     const view = this;
     // When a click event occurs on a feature in the places layer, open a popup at the
     // location of the feature, with description HTML from its properties.
     this.map.on('load', function () {
-     
+      if (solo_lng != null){
+        const center = new mapboxgl.LngLat(solo_lng,solo_lat);
+        map.setCenter(center);
+        map.addLayer({
+          id: 'placeHolderPoint',
+          type: 'symbol',
+          source: {
+            type: 'geojson',
+            data: {
+              type: 'FeatureCollection',
+              features: [
+                {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [solo_lng,solo_lat]
+                  },
+                  properties: {
+                    icon: 'communications-tower',
+                    title: (Math.round(solo_lng * 10000) / 10000).toString() + ', ' + (Math.round(solo_lat * 10000) / 10000).toString()
+                  }
+                }
+              ]
+            },
+            tolerance: 0.00001
+          },
+          layout: {
+            'icon-image': '{icon}-15',
+            'icon-size': 1.25,
+            'text-field': '{title}',
+            'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+            'text-offset': [0, 0.6],
+            'text-anchor': 'top',
+            'icon-allow-overlap': true,
+            'text-allow-overlap': true
+          }
+        });
+        view.pushEvent("assign_station")
+      }
       map.on('click', function (e) {
         const mapLayer = map.getLayer('placeHolderPoint')
 
@@ -84,6 +122,7 @@ const StationMap = {
           }
         });
         // view.pushEvent("clear_location", { location: e.lngLat })
+        console.log("clicked")
         view.pushEvent("selected_location", { location: e.lngLat })
       });
     });
@@ -94,7 +133,6 @@ const StationMap = {
       const center = new mapboxgl.LngLat(lat,lng);
       this.map.setCenter(center);
       this.map.on('load', function () {
-        console.log("fasdf")
         map.addLayer({
           id: 'placeHolderPoint',
           type: 'symbol',
@@ -129,13 +167,13 @@ const StationMap = {
             'text-allow-overlap': true
           }
         });
+        view.pushEvent("assign_station")
       });
     });
     this.handleEvent("clicked", data => {
       let lat = data.station_info.lat
       let lng = data.station_info.lng
-      console.log("Adding val")
-
+      console.log("adding layer")
       const towerLayer = map.getLayer("currentStationPoint")
       if (typeof towerLayer !== 'undefined') {
         // Remove map layer & source.
@@ -157,11 +195,11 @@ const StationMap = {
                     type: 'Feature',
                     geometry: {
                       type: 'Point',
-                      coordinates: [42.38, 255.39]
+                      coordinates: [lng, lat]
                     },
                     properties: {
                       icon: 'communications-tower',
-                      title: (Math.round(42.38 * 10000) / 10000).toString() + ', ' + (Math.round(255.39 * 10000) / 10000).toString()
+                      title: (Math.round(lng * 10000) / 10000).toString() + ', ' + (Math.round(lat * 10000) / 10000).toString()
                     }
                   }
                 ]
@@ -184,7 +222,6 @@ const StationMap = {
     )
   },
   updated() {
-    console.log("Updated")
     // const selectedLocation = JSON.parse(this.el.dataset.selected_location)
     this.map = this.createMap()
     const map = this.map
