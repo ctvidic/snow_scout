@@ -61,7 +61,6 @@ defmodule SnowScoutWeb.SoloLive do
 
   def handle_event("assign_station", _params,socket) do
     station_strings = list_to_string(socket.assigns.precip_values)
-    Logger.info station_strings
     {:noreply, assign(socket, precip_string: station_strings)}
   end
 
@@ -103,12 +102,8 @@ defmodule SnowScoutWeb.SoloLive do
 
   def handle_event("delete_station", data , socket) do
     lat = socket.assigns
-    Logger.info "get?"
-    Logger.info socket.assigns.lat_solo
     x= Repo.get_by(Station, latitude: socket.assigns.lat_solo)
-    Logger.info "got?"
 
-    Logger.info "delete?"
     Repo.delete(x)
     {:noreply, socket}
   end

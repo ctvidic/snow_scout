@@ -22,20 +22,6 @@ const DetailedPrecipChart = {
     }
   },
   chartOptions(seriesData, station_name, station_elevation) {
-    // let numbers = []
-    // if (seriesData == null) {
-    //   oldData = []
-    // }else{
-    //   splitSeries = seriesData.split("\"")
-    //   for(let x = 0; x < splitSeries.length; x++){
-    //     num = parseInt(splitSeries[x])
-    //     if (num >= 0){
-    //       numbers.push(parseInt(num))
-    //     }
-    //   }
-    //   oldData = numbers
-    // }
-    console.log(seriesData)
     let numbers = []
     let prev_dates = this.prev_week_dates()
     for(let x = 0; x < seriesData.length; x++){
@@ -107,7 +93,6 @@ const DetailedPrecipChart = {
       month = date.getMonth() + 1
       day= date.getDate()
       date_string = month + '/' + day
-      console.log(date_string)
       arr.push(date_string);
     }
     arr.reverse();
@@ -138,7 +123,6 @@ const DetailedPrecipChart = {
               arr.push(0)
               i+=1
             }
-          console.log(string)
           }
           if (string !== ""){
             arr.push(parseInt(string))
@@ -157,17 +141,9 @@ const DetailedPrecipChart = {
     })
   },
   updated() {
-    // console.log("Updating Chart")
     const selectedLocation = this.el.getAttribute("api_response")
     const station_name = this.el.getAttribute("station_name")
-    // console.log(selectedLocation)
     this.createChart(this.chartOptions(selectedLocation, station_name))
-
-    // if ((selectedLocation !== undefined) && (!Array.isArray(selectedLocation))) {
-    //   // ApexCharts.exec('DetailedPrecipChart', 'updateSeries', newSeriesData, true);
-    // } else {
-    //   ApexCharts.exec('DetailedPrecipChart', 'updateSeries', [], true);
-    // }
   },
   getHighPrecipData(location) {
     return this.filterPrecipData(location, '75th percentiles of daily nonzero precipitation totals for 29-day windows centered on each day of the year')

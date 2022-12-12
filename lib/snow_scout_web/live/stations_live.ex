@@ -50,7 +50,6 @@ defmodule SnowScoutWeb.StationsLive do
         {:error, %HTTPoison.Error{reason: _reason}} ->
           nil
       end
-    Logger.info "selected_location"
     if api_response != nil do
       api_map = Poison.decode!(api_response)
       values_listed = map_to_list(Map.fetch!(List.first(api_map),"data"))

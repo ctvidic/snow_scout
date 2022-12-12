@@ -51,7 +51,6 @@ defmodule SnowScoutWeb.LocationsLive do
   end
 
   def handle_event("delete_station", data , socket) do
-      Logger.debug data
   end
 
   def render(assigns) do

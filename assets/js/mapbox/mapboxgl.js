@@ -1,11 +1,9 @@
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-// import config from "./config"
 
 const StationMap = {
   createMap() {
-    // add your own mapbox api token below
     mapboxgl.accessToken = 'pk.eyJ1IjoiY2hyaXN2aWRpYyIsImEiOiJjbDlvanA1Z2gwMzEwM25yMGtsOTIybmI1In0.fWAFVRe_dNP4qRNWLMbkeg';
 
     var map = new mapboxgl.Map({
@@ -29,15 +27,12 @@ const StationMap = {
   },
   mounted() {
     this.map = this.createMap()
-    // const selectedLocation = JSON.parse(this.el.dataset.selected_location)
     const map = this.map
     doc = document.getElementById('station-map')
     let solo_lng = doc.getAttribute('phx-value-lng')
     let solo_lat = doc.getAttribute('phx-value-lat')
     let precip = doc.getAttribute('phx-value-precip')
     const view = this;
-    // When a click event occurs on a feature in the places layer, open a popup at the
-    // location of the feature, with description HTML from its properties.
     this.map.on('load', function () {
       if (solo_lng != null){
         const center = new mapboxgl.LngLat(solo_lng,solo_lat);
@@ -121,13 +116,10 @@ const StationMap = {
             'text-allow-overlap': true
           }
         });
-        // view.pushEvent("clear_location", { location: e.lngLat })
-        console.log("clicked")
         view.pushEvent("selected_location", { location: e.lngLat })
       });
     });
     this.handleEvent("update_station" , data => {
-      // this.map = this.createMap()
       let lat = data.lat
       let lng = data.lng
       const center = new mapboxgl.LngLat(lat,lng);
@@ -173,10 +165,8 @@ const StationMap = {
     this.handleEvent("clicked", data => {
       let lat = data.station_info.lat
       let lng = data.station_info.lng
-      console.log("adding layer")
       const towerLayer = map.getLayer("currentStationPoint")
       if (typeof towerLayer !== 'undefined') {
-        // Remove map layer & source.
         map
           .removeLayer("currentStationPoint")
           .removeSource("currentStationPoint")
@@ -222,14 +212,12 @@ const StationMap = {
     )
   },
   updated() {
-    // const selectedLocation = JSON.parse(this.el.dataset.selected_location)
     this.map = this.createMap()
     const map = this.map
     const view = this;
       map.on('click', function (e) {
         const mapLayer = map.getLayer('placeHolderPoint')
         if (typeof mapLayer !== 'undefined') {
-          // Remove map layer & source.
           map
             .removeLayer('placeHolderPoint')
             .removeSource('placeHolderPoint')
