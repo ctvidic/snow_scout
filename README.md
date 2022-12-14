@@ -1,11 +1,15 @@
 # SnowScout
 
 SnowScout is a website built for providing up to date snowfall info received from SNOTEL sites. A SNOTEL site is a fancy name for a backcountry weather station that measures snow and transmits the data wirelessly. SnowScout uses a cloned and deployed version of the [powderlines api](https://github.com/bobbymarko/powderlines-api) for access to daily info. 
+<p align="center">
+ <img width="643" alt="image" src="https://user-images.githubusercontent.com/80602202/206814053-f9aa6c18-9d50-4f94-847d-5d866853b64a.png">
+</p>
 
-<img width="643" alt="image" src="https://user-images.githubusercontent.com/80602202/206814053-f9aa6c18-9d50-4f94-847d-5d866853b64a.png">
+SnowScout was created as an exercise in creating a simple CRUD application using Phoenix Liveview. SnowScout allows users to create an account and save or delete stations that they are interested in. Users can then monitor and keep up to date with the saved stations. Saved stations have links to there official SNOTEL link, the station specific page, and also up to date info on current snowfall in inches.
 
-
-SnowScout was created as an exercise in creating a simple CRUD application using Phoenix Liveview. SnowScout allows users to create an account and save or delete stations that they are interested in. Users can then monitor and keep up to date with the saved stations.
+<p align="center">
+<img width="1019" alt="image" src="https://user-images.githubusercontent.com/80602202/207501278-f3528d69-0706-4b29-94c6-3edc0c300db0.png">
+</p>
 
 Project created using Elixir, Mapbox API, ApexCharts, and Tailwind.
 
