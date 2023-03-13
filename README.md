@@ -1,6 +1,6 @@
 # SnowScout
 
-SnowScout is a website built for providing up to date snowfall info received from SNOTEL sites. A SNOTEL site is a fancy name for a backcountry weather station that measures snow and transmits the data wirelessly. SnowScout uses a cloned and deployed version of the [powderlines api](https://github.com/bobbymarko/powderlines-api) for access to daily info. 
+SnowScout is a website built for providing up to date snowfall info received from SNOTEL sites. A SNOTEL site is a remote backcountry weather station that measures snow and transmits the data wirelessly. SnowScout uses a cloned and deployed version of the [powderlines api](https://github.com/bobbymarko/powderlines-api) for access to daily info. 
 <p align="center">
  <img width="643" alt="image" src="https://user-images.githubusercontent.com/80602202/206814053-f9aa6c18-9d50-4f94-847d-5d866853b64a.png">
 </p>
